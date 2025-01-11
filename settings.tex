@@ -1,16 +1,16 @@
 
 % Identifying information
 \newcommand{\Title}{Academic CV}
-\newcommand{\FirstName}{Bartosz}
-\newcommand{\LastName}{Bednarczyk}
-\newcommand{\Initials}{BBe}
+\newcommand{\FirstName}{Lucas}
+\newcommand{\LastName}{Carr}
+\newcommand{\Initials}{LC}
 \newcommand{\MyName}{\FirstName\ \LastName}
 \newcommand{\Me}{\underline{\LastName, \Initials}}  % For citations
-\newcommand{\Email}{bartosz.bednarczyk@cs.uni.wroc.pl}
-\newcommand{\PersonalWebsite}{bartoszjanbednarczyk.github.io}
-\newcommand{\LabWebsite}{bartoszjanbednarczyk.github.io}
-\newcommand{\ORCID}{0000-0002-8267-7554}
-\newcommand{\GitHubProfile}{bartoszjanbednarczyk}
+\newcommand{\Email}{crrluc003@myuct.ac.za}
+\newcommand{\PersonalWebsite}{lucasc.net}
+\newcommand{\LabWebsite}{lucasc.net}
+\newcommand{\ORCID}{0000-0001-7464-8422}
+\newcommand{\GitHubProfile}{lucascarrr}
 
 
 % Load packages
@@ -71,12 +71,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \geometry{%
-  margin=12.5mm,
-  headsep=0mm,
-  headheight=0mm,
-  footskip=5mm,
-  includehead=true,
-  includefoot=true
+	margin=12.5mm,
+	headsep=0mm,
+	headheight=0mm,
+	footskip=5mm,
+	includehead=true,
+	includefoot=true
 }
 
 % Custom colors
@@ -98,15 +98,15 @@
 
 % Set the spacing and format of sections
 \titleformat{\section}
-  {\normalfont\Large\mdseries} % format
-  {} % label
-  {0pt} % separation (left separation for hang)
-  {} % text before title
-  [\titlerule] % text after title
+{\normalfont\Large\mdseries} % format
+{} % label
+{0pt} % separation (left separation for hang)
+{} % text before title
+[\titlerule] % text after title
 \titlespacing*{\section}
-  {0pt} % left pad
-  {0.1cm} % before
-  {0cm} % after
+{0pt} % left pad
+{0.1cm} % before
+{0cm} % after
 
 % Disable number of sections. Use this instead of "section*" so that the sections still
 % appear as PDF bookmarks. Otherwise, would have to add the table of contents entries
@@ -119,18 +119,18 @@
 % Left column are the dates, right column the entries.
 \newcommand{\TablePad}{\vspace{-0.2cm}}
 \NewEnviron{EntriesTableDuration}{
-\TablePad
-\begin{tabularx}{\textwidth}{@{}p{0.135\textwidth}@{\hspace{0.02\textwidth}}p{0.845\textwidth}@{}}
-  \BODY
-\end{tabularx}
-\TablePad
+	\TablePad
+	\begin{tabularx}{\textwidth}{@{}p{0.135\textwidth}@{\hspace{0.02\textwidth}}p{0.845\textwidth}@{}}
+		\BODY
+	\end{tabularx}
+	\TablePad
 }
 \NewEnviron{EntriesTableYear}{
-\TablePad
-\begin{tabularx}{\textwidth}{@{}p{0.08\textwidth}@{\hspace{0.01\textwidth}}p{0.91\textwidth}@{}}
-  \BODY
-\end{tabularx}
-\TablePad
+	\TablePad
+	\begin{tabularx}{\textwidth}{@{}p{0.08\textwidth}@{\hspace{0.01\textwidth}}p{0.91\textwidth}@{}}
+		\BODY
+	\end{tabularx}
+	\TablePad
 }
 
 % Macros to set the year and duration on the left column
@@ -154,16 +154,16 @@
 \pagestyle{fancy}
 \fancyhf{}
 \lfoot{%
-  \FooterFont{}
-  \MyName{}
-  \Separator{}
-  \Title{}
+	\FooterFont{}
+	\MyName{}
+	\Separator{}
+	\Title{}
 }
 \rfoot{%
-  \FooterFont{}
-  Last updated: \monthyear\today{}
-  \Separator{}
-  \thepage\space of\space \pageref*{LastPage}
+	\FooterFont{}
+	Last updated: \monthyear\today{}
+	\Separator{}
+	\thepage\space of\space \pageref*{LastPage}
 }
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{1pt}
@@ -171,9 +171,9 @@
 
 % Metadata for the PDF output and control of hyperlinks
 \hypersetup{
-  colorlinks,
-  allcolors=mediumblue,
-  breaklinks=true,
-  pdftitle={\Title{} - \MyName},
-  pdfauthor={\MyName},
+	colorlinks,
+	allcolors=mediumblue,
+	breaklinks=true,
+	pdftitle={\Title{} - \MyName},
+	pdfauthor={\MyName},
 }
