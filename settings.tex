@@ -1,0 +1,179 @@
+
+% Identifying information
+\newcommand{\Title}{Academic CV}
+\newcommand{\FirstName}{Lucas}
+\newcommand{\LastName}{Carr}
+\newcommand{\Initials}{LC}
+\newcommand{\MyName}{\FirstName\ \LastName}
+\newcommand{\Me}{\underline{\LastName, \Initials}}  % For citations
+\newcommand{\Email}{crrluc003@myuct.ac.za}
+\newcommand{\PersonalWebsite}{lucasc.net}
+\newcommand{\LabWebsite}{lucasc.net}
+\newcommand{\ORCID}{0000-0001-7464-8422}
+\newcommand{\GitHubProfile}{lucascarrr}
+
+
+% Load packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Full Unicode support for non-ASCII characters
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[TU]{fontenc}
+
+% Set main fonts
+\usepackage[sfdefault]{atkinson}
+\usepackage[ttdefault]{sourcecodepro}
+
+% Icon fonts
+\usepackage{fontawesome5}
+\usepackage{academicons}
+
+% Disable hyphenation
+\usepackage[none]{hyphenat}
+
+% Control the font size
+\usepackage{anyfontsize}
+
+% For fancy and multipage tables
+\usepackage{tabularx}
+\usepackage{ltablex}
+
+% For new environments
+\usepackage{environ}
+
+% Manage dates and times
+\usepackage{datetime}
+
+% Set the page margins
+\usepackage{geometry}
+
+% To get the total page numbers (\pageref{LastPage})
+\usepackage{lastpage}
+
+% Control spacing in enumerates
+\usepackage{enumitem}
+
+% Use custom colors
+\usepackage[usenames,dvipsnames]{xcolor}
+
+% Configure section titles
+\usepackage{titlesec}
+
+% Fancy header configuration
+\usepackage{fancyhdr}
+
+% Control PDF metadata and links
+\usepackage[colorlinks=true]{hyperref}
+
+
+% Template configuration
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\geometry{%
+	margin=12.5mm,
+	headsep=0mm,
+	headheight=0mm,
+	footskip=5mm,
+	includehead=true,
+	includefoot=true
+}
+
+% Custom colors
+\definecolor{mediumgray}{gray}{0.5}
+\definecolor{lightgray}{gray}{0.9}
+\definecolor{mediumblue}{HTML}{2060c2}
+\definecolor{lightblue}{HTML}{a0c3ff}
+
+% No indentation
+\setlength\parindent{0cm}
+
+% Increase the line spacing
+\renewcommand{\baselinestretch}{1.1}
+% and the spacing between rows in tables
+\renewcommand{\arraystretch}{1.25}
+
+% Remove space between items in itemize and enumerate
+\setlist{nosep}
+
+% Set the spacing and format of sections
+\titleformat{\section}
+{\normalfont\Large\mdseries} % format
+{} % label
+{0pt} % separation (left separation for hang)
+{} % text before title
+[\titlerule] % text after title
+\titlespacing*{\section}
+{0pt} % left pad
+{0.1cm} % before
+{0cm} % after
+
+% Disable number of sections. Use this instead of "section*" so that the sections still
+% appear as PDF bookmarks. Otherwise, would have to add the table of contents entries
+% manually.
+\makeatletter
+\renewcommand{\@seccntformat}[1]{}
+\makeatother
+
+% Define a new environment to place all CV entries in a 2-column table.
+% Left column are the dates, right column the entries.
+\newcommand{\TablePad}{\vspace{-0.2cm}}
+\NewEnviron{EntriesTableDuration}{
+	\TablePad
+	\begin{tabularx}{\textwidth}{@{}p{0.135\textwidth}@{\hspace{0.02\textwidth}}p{0.845\textwidth}@{}}
+		\BODY
+	\end{tabularx}
+	\TablePad
+}
+\NewEnviron{EntriesTableYear}{
+	\TablePad
+	\begin{tabularx}{\textwidth}{@{}p{0.08\textwidth}@{\hspace{0.01\textwidth}}p{0.91\textwidth}@{}}
+		\BODY
+	\end{tabularx}
+	\TablePad
+}
+
+% Macros to set the year and duration on the left column
+\newcommand{\Duration}[2]{\fontsize{10pt}{0}\selectfont \texttt{#1-#2}}
+\newcommand{\Year}[1]{\fontsize{10pt}{0}\selectfont \texttt{#1}}
+\newcommand{\Ongoing}{on}
+\newcommand{\Future}{future}
+
+% Macros to add links and mark publications
+\newcommand{\DOI}[1]{DOI: \href{https://doi.org/#1}{#1}}
+\newcommand{\Website}[1]{\href{https://#1}{#1}}
+\newcommand{\Preprint}[1]{Preprint: \href{https://doi.org/#1}{#1}}
+\newcommand{\GitHub}[1]{GitHub: \href{https://github.com/#1}{#1}}
+
+% Define command to insert month name and year as date
+\newdateformat{monthyear}{\monthname[\THEMONTH], \THEYEAR}
+
+% Configure a fancy footer
+\newcommand{\Separator}{\hspace{3pt}|\hspace{3pt}}
+\newcommand{\FooterFont}{\footnotesize\color{mediumgray}}
+\pagestyle{fancy}
+\fancyhf{}
+\lfoot{%
+	\FooterFont{}
+	\MyName{}
+	\Separator{}
+	\Title{}
+}
+\rfoot{%
+	\FooterFont{}
+	Last updated: \monthyear\today{}
+	\Separator{}
+	\thepage\space of\space \pageref*{LastPage}
+}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{1pt}
+\preto{\footrule}{\color{lightgray}}
+
+% Metadata for the PDF output and control of hyperlinks
+\hypersetup{
+	colorlinks,
+	allcolors=mediumblue,
+	breaklinks=true,
+	pdftitle={\Title{} - \MyName},
+	pdfauthor={\MyName},
+}
