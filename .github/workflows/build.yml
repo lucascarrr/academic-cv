@@ -1,67 +1,69 @@
 name: compile-pdf
 
 on:
-  pull_request:
   push:
     branches:
       - main
-
-# Use bash by default in all jobs
-defaults:
-  run:
-    # The -l {0} is necessary for conda environments to be activated
-    # But this breaks on MacOS if using actions/setup-python:
-    # https://github.com/actions/setup-python/issues/132
-    shell: bash {0}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE
-      - name: Checkout
-        uses: actions/checkout@v2
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history needed for branch switching
 
+      # Setup caching for tectonic (optional, if you're using LaTeX)
       - name: Setup caching for tectonic
         uses: actions/cache@v3
         with:
           path: ~/.cache/Tectonic
           key: tectonic-${{ runner.os }}
 
+      # Setup caching for conda packages
       - name: Setup caching for conda packages
         uses: actions/cache@v3
         with:
           path: ~/conda_pkgs_dir
           key: conda-${{ runner.os }}-${{ hashFiles('environment.yml') }}
 
+      # Setup Miniconda and dependencies
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2.1.1
+        uses: conda-incubator/setup-miniconda@v2
         with:
           environment-file: environment.yml
           activate-environment: cv
           miniforge-variant: Mambaforge
-          miniforge-version: "latest"
           use-mamba: true
           channel-priority: strict
-          # Needed for caching
-          use-only-tar-bz2: true
 
+      # List installed packages (debugging)
       - name: List installed packages
         run: mamba list
 
-      - name: Compile the PDF
+      # Compile the LaTeX document to PDF
+      - name: Compile PDF
         run: |
           make
-          mkdir output
-          cp *.pdf output/
+          mkdir -p output
+          mv *.pdf output/
 
-      - name: Push to gh-pages
-        if: success() && github.event_name == 'push'
-        # Don't use tags: https://julienrenaux.fr/2019/12/20/github-actions-security-risk/
-        uses: peaceiris/actions-gh-pages@bbdfb200618d235585ad98e965f4aafc39b4c501
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./output
-          publish_branch: pdf
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
+      # Deploy only the PDF to the `pdf` branch
+      - name: Push PDF to `pdf` branch
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Switch to a new orphan branch (deletes all previous files in `pdf` branch)
+          git checkout --orphan pdf
+          git rm -rf .
+
+          # Copy the generated PDF to the root
+          mv output/*.pdf .
+
+          # Commit and push the new PDF branch
+          git add *.pdf
+          git commit -m "Update compiled PDF"
+          git push --force origin pdf
